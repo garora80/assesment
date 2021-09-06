@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--Task1. voda - delete sccond row + country sorting after 5 sec -submitted by Gaurav arora-->
+<html>
+<head>
+ 
+<style>
+#customers {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+ 
+#customers td, #customers th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+ 
+#customers tr:nth-child(even) {
+  background-color: #eee;
+}
+ 
+#customers tr:hover {background-color: #ccc;}
+ 
+#customers th {
+  background-color: #345a32;
+  color: white;
+}
+ 
+#logo {
+  height: 2rem;
+}
+	
+	
+   
+ 
+</style>
+<script>
+	/*Task1 voda Ga |*/
+function sortTableByCountry() {
+    const countries = [];//to store old countries without sort
+    let sortedCountries = [];//to store sorted countries
+
+    const customerTables = document.querySelector("#customers tbody");
+    let allTableRows = document.querySelectorAll("#customers tr");
+
+    //loop over rows to collect countries
+    for (let i = 0; i < allTableRows.length; i++) {
+        if (i > 0) {
+            let tableRow = allTableRows[i];
+            const country = tableRow.querySelector('td:last-child').innerHTML;
+            tableRow.setAttribute('data-order', i);
+            countries.push(country);
+			
+        }
+    }
+
+    //sort countries
+    sortedCountries = [...countries];
+    sortedCountries = sortedCountries.sort();
+
+    //loop over countries to update positions of table rows
+    for (let i = 0; i < sortedCountries.length; i++) {
+        let countryName = sortedCountries[i];
+        let oldLocation = countries.indexOf(countryName);
+        oldLocation = oldLocation + 1; // plus with 1 to include table heading
+        const tableRow = document.querySelector('#customers tr[data-order="' + oldLocation + '"]'); //get row as per country
+        customerTables.insertBefore(tableRow, document.querySelectorAll("#customers tr")[(i + 1)]);
+    }
+
+}
+
+function removeSecondRow() {
+    document.querySelector("#customers tr:nth-child(3)").remove();
+	
+}
+	
+
+window.onload = function () {
+    setTimeout(e => {
+        removeSecondRow();
+        setTimeout(e => {
+            sortTableByCountry();
+        }, 5000);
+		console.log("GA - after 5 sec second sorting")
+    }, 3000);
+}	
+</script>
+</head>
+<body>
+ 
+<img id="logo"  src="https://www.google.lv/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+ 
+<table id="customers">
+  <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Centro comercial Moctezuma</td>
+    <td>Francisco Chang</td>
+    <td>Mexico</td>
+  </tr>
+  <tr>
+    <td>Ernst Handel</td>
+    <td>Roland Mendel</td>
+    <td>Austria</td>
+  </tr>
+  <tr>
+    <td>Island Trading</td>
+    <td>Helen Bennett</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Laughing Bacchus Winecellars</td>
+    <td>Yoshi Tannamuri</td>
+    <td>Canada</td>
+  </tr>
+  <tr>
+    <td>Magazzini Alimentari Riuniti</td>
+    <td>Giovanni Rovelli</td>
+    <td>Italy</td>
+  </tr>
+</table>
+ 
+</body>
+ 
+<script src="js/myscript.js"></script>
+</html>

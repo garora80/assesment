@@ -1,0 +1,129 @@
+<!--Task2. voda - Amazon vocher -submitted by Gaurav arora-->
+
+<style>
+    section.vfuk-Section__section {
+        display: none;
+    }
+
+    .vfuk-CMSBanner__banner {
+        display: none;
+    }
+
+    .interactive-marketing-banner {
+        display: none;
+    }
+
+    div#content section:nth-child(3), div#content section:nth-child(3) .vfuk-CMSBanner__banner {
+        display: block;
+    }
+
+    div#content section:nth-child(3) .vfuk-BackgroundImage__bg {
+        background-image: url('https://cdn.vodafone.co.uk/en/assets/images/extralarge/IMG_Pro_Broadband_Affiliate_voucher.jpg') !important;
+    }
+
+    body.picture-based div#content section:nth-child(3) .vfuk-CMSBanner__banner {
+        display: flex !important;
+    }
+
+    body.picture-based .vfuk-TextBlock__tile-opaque {
+        padding-top: 15px !important;
+    }
+
+    @media only screen and (max-width: 880px) {
+        div#content section:nth-child(3) .vfuk-BackgroundImage__bg {
+            display: block;
+            background-image: url('https://cdn.vodafone.co.uk/en/assets/images/large/IMG_Pro_Broadband_Affiliate_voucher.jpg') !important;
+        }
+    }
+
+    @media only screen and (max-width: 400px) {
+        div#content section:nth-child(3) .vfuk-BackgroundImage__bg {
+            height: 240px;
+        }
+
+        .vfuk-TextBlock__tile-opaque {
+            padding-top: 240px;
+        }
+    }
+
+    @media only screen and (min-width: 400px) and (max-width: 620px) {
+        div#content section:nth-child(3) .vfuk-BackgroundImage__bg {
+            height: 300px;
+        }
+
+        .vfuk-TextBlock__tile-opaque {
+            padding-top: 300px;
+        }
+    }
+
+    @media only screen and (min-width: 620px) and (max-width: 760px) {
+        div#content section:nth-child(3) .vfuk-BackgroundImage__bg {
+            height: 350px;
+        }
+
+        .vfuk-TextBlock__tile-opaque {
+            padding-top: 350px;
+        }
+    }
+
+    @media only screen and (min-width: 760px) and (max-width: 880px) {
+        div#content section:nth-child(3) .vfuk-BackgroundImage__bg {
+            height: 400px;
+        }
+
+        .vfuk-TextBlock__tile-opaque {
+            padding-top: 400px;
+        }
+    }
+
+</style>
+<script>
+    //changing banner title and subtitles
+    const bannerElement = document.querySelector('div#content section:nth-child(3)');
+    if (bannerElement != null) {
+        const bannerHeading = bannerElement.querySelector('.vfuk-Heading__heading');
+        if (bannerHeading != null) {
+            bannerHeading.innerHTML = 'Your exclusive £60 Amazon voucher with Vodafone Broadband';
+        }
+        const bannerSubHeading = bannerElement.querySelector('.vfuk-RawHtmlWrapper__typography div');
+        if (bannerSubHeading != null) {
+            bannerSubHeading.innerHTML = '<p>Get a £60 Amazon voucher plus Superfast 2 for the price of Superfast 1</p>';
+        }
+    }
+
+    //changing title of postcode section
+    const postcodeSectionHeading = document.querySelector('.vfuk-Controller__shadow .vfuk-Heading__heading');
+    if (postcodeSectionHeading != null) {
+        postcodeSectionHeading.innerHTML = 'Enter your postcode to see your exclusive broadband deal';
+    }
+
+    function checkPictureTagBanner(){
+        let bannerPicturesElement = document.querySelector('div#content section:nth-child(3) picture.vfuk-image__picture');
+        if (bannerPicturesElement != null) {
+            document.body.classList.add('picture-based');//same time pictures tag inserted to tackle that added class to adjust css accordingly
+            let extraLargeScreenElement = bannerPicturesElement.querySelector('source[media="(min-width: 881px)"]');
+            if(extraLargeScreenElement!=null){
+                extraLargeScreenElement.setAttribute('srcset', 'https://cdn.vodafone.co.uk/en/assets/images/extralarge/IMG_Pro_Broadband_Affiliate_voucher.jpg');
+            }
+            let largeScreenElement = bannerPicturesElement.querySelector('source[media="(min-width: 601px)"]');
+            if(largeScreenElement!=null){
+                largeScreenElement.setAttribute('srcset', 'https://cdn.vodafone.co.uk/en/assets/images/large/IMG_Pro_Broadband_Affiliate_voucher.jpg');
+            }
+            let mediumScreenElement = bannerPicturesElement.querySelector('source[media="(min-width: 0)"]');
+            if(mediumScreenElement!=null){
+                mediumScreenElement.setAttribute('srcset', 'https://cdn.vodafone.co.uk/en/assets/images/medium/IMG_Pro_Broadband_Affiliate_voucher.jpg');
+            }
+            let imageElement = bannerPicturesElement.querySelector('img');
+            if(imageElement!=null){
+                imageElement.setAttribute('src', 'https://cdn.vodafone.co.uk/en/assets/images/extralarge/IMG_Pro_Broadband_Affiliate_voucher.jpg');
+            }
+        }else{
+            document.body.classList.remove('picture-based');
+        }
+    }
+
+    window.addEventListener("resize", checkPictureTagBanner);
+
+    checkPictureTagBanner();
+
+</script>
